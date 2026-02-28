@@ -39,3 +39,19 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+venv/
+.venv/
+*.egg-info/
+
+# backend - contact submissions (private data)
+backend/data/contact_messages.json
+
+# OS files
+Thumbs.db
+Desktop.ini
