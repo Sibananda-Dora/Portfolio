@@ -1,0 +1,14 @@
+[
+    {
+        "title": "OpenMedia CLI",
+        "description": "An intelligent CLI tool for media processing with FFmpeg. Features AI-powered command generation, safety review, and deterministic fallbacks for common operations.",
+        "tags": [
+            "Python",
+            "FFmpeg",
+            "Ollama",
+            "CLI",
+            "AI"
+        ],
+        "url": "https://github.com/Sibananda-Dora"
+    }
+]
