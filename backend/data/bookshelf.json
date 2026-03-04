@@ -3,7 +3,70 @@
         "title": "1984",
         "author": "George Orwell",
         "cover": "/books/1984.jpg",
-        "review": "The book is based on a world which recognizes that there are only three continents and our guy lives in Oceania which is one of them and war is going on (which is going on for like forever), the big brother / the current government decides which continent is their friend which changes from time to time... What I liked is the concept of thought poli..... (more coming soon)",
+        "category": "novels",
         "read_date": "~2024"
+    },
+    {
+        "title": "Diary of a Young Girl",
+        "author": "Anne Frank",
+        "cover": "/books/diary-anne-frank.jpg",
+        "category": "novels",
+        "read_date": "~2024"
+    },
+    {
+        "title": "Dune",
+        "author": "Frank Herbert",
+        "cover": "",
+        "category": "novels",
+        "read_date": ""
+    },
+    {
+        "title": "Dune Messiah",
+        "author": "Frank Herbert",
+        "cover": "",
+        "category": "novels",
+        "read_date": ""
+    },
+    {
+        "title": "Animal Farm",
+        "author": "George Orwell",
+        "cover": "",
+        "category": "novels",
+        "read_date": ""
+    },
+    {
+        "title": "Children of Dune",
+        "author": "Frank Herbert",
+        "cover": "",
+        "category": "novels",
+        "read_date": ""
+    },
+    {
+        "title": "The ABC Murders",
+        "author": "Agatha Christie",
+        "cover": "",
+        "category": "novels",
+        "read_date": ""
+    },
+    {
+        "title": "Metamorphosis",
+        "author": "Franz Kafka",
+        "cover": "",
+        "category": "novels",
+        "read_date": ""
+    },
+    {
+        "title": "White Nights",
+        "author": "Fyodor Dostoevsky",
+        "cover": "",
+        "category": "novels",
+        "read_date": ""
+    },
+    {
+        "title": "Linux Basics for Hackers",
+        "author": "OccupyTheWeb",
+        "cover": "",
+        "category": "study-based",
+        "read_date": ""
     }
 ]

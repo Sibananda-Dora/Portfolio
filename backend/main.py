@@ -6,11 +6,22 @@ Run: uvicorn main:app --reload --port 8000
 """
 
 import json
+import smtplib
+import os
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from pathlib import Path
 from datetime import datetime
+from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr
+
+# Load .env
+load_dotenv(Path(__file__).parent / ".env")
+
+GMAIL_USER = os.getenv("GMAIL_USER", "")
+GMAIL_APP_PASSWORD = os.getenv("GMAIL_APP_PASSWORD", "")
 
 # ─── App Setup ───────────────────────────────────────────────
 app = FastAPI(
@@ -59,6 +70,32 @@ class ContactMessage(BaseModel):
     message: str
 
 
+# ─── Email Helper ─────────────────────────────────────────────
+def send_email(name: str, sender_email: str, message: str):
+    """Send contact form submission to Gmail inbox."""
+    if not GMAIL_USER or not GMAIL_APP_PASSWORD:
+        return  # silently skip if not configured
+
+    subject = f"Portfolio Contact: {name}"
+    body = f"""New message from your portfolio contact form:
+
+Name:    {name}
+Email:   {sender_email}
+Message:
+{message}
+"""
+    msg = MIMEMultipart()
+    msg["From"] = GMAIL_USER
+    msg["To"] = GMAIL_USER
+    msg["Subject"] = subject
+    msg["Reply-To"] = sender_email
+    msg.attach(MIMEText(body, "plain"))
+
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+        server.login(GMAIL_USER, GMAIL_APP_PASSWORD)
+        server.sendmail(GMAIL_USER, GMAIL_USER, msg.as_string())
+
+
 # ─── Routes ──────────────────────────────────────────────────
 
 @app.get("/")
@@ -79,7 +116,7 @@ def get_profile():
             "Well, that's it — not much of a big journey yet!",
         ],
         "philosophy": {
-            "title": "Philosophy Time",
+            "title": "Philosophy",
             "text": "I read somewhere some days ago that in earlier days, the Native Americans, when travelling on horses, after covering a distance, used to stop and get off the horse and simply look back to the distance they had travelled — not to rest, not to give their horse a break, but just to look back at the journey they had made.",
             "closing": "Humans, huh!",
         },
@@ -87,7 +124,6 @@ def get_profile():
             {"name": "GitHub", "url": "https://github.com/Sibananda-Dora", "platform": "github"},
             {"name": "LinkedIn", "url": "https://www.linkedin.com/in/sibananda-dora-a487a1389/", "platform": "linkedin"},
             {"name": "X (Twitter)", "url": "https://x.com/Sibanand007", "platform": "x"},
-            {"name": "Email", "url": "mailto:sibanandadora443@gmail.com", "platform": "email"},
         ],
     }
 
@@ -116,9 +152,15 @@ def get_papershelf():
     return read_json("papershelf.json")
 
 
+@app.get("/api/highlights")
+def get_highlights():
+    """Return all highlights/achievements."""
+    return read_json("highlights.json")
+
+
 @app.post("/api/contact")
 def submit_contact(msg: ContactMessage):
-    """Save a contact form message."""
+    """Save a contact form message and email it."""
     messages = read_json("contact_messages.json")
     if not isinstance(messages, list):
         messages = []
@@ -129,4 +171,11 @@ def submit_contact(msg: ContactMessage):
         "submitted_at": datetime.now().isoformat(),
     })
     write_json("contact_messages.json", messages)
+
+    # Send email notification (non-blocking failure)
+    try:
+        send_email(msg.name, msg.email, msg.message)
+    except Exception as e:
+        print(f"[email] Failed to send: {e}")
+
     return {"status": "success", "message": "Thank you for reaching out! I'll get back to you soon."}

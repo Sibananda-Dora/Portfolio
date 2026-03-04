@@ -22,7 +22,9 @@ export default function Header() {
                 </button>
 
                 <nav className={`header-nav ${menuOpen ? "open" : ""}`}>
+                    <a href="/" onClick={() => setMenuOpen(false)}>Home</a>
                     <a href="/projects" onClick={() => setMenuOpen(false)}>Projects</a>
+                    <a href="/highlights" onClick={() => setMenuOpen(false)}>Highlights</a>
                     <a href="/myreads" onClick={() => setMenuOpen(false)}>MyReads</a>
                     <a href="/#contact" onClick={() => setMenuOpen(false)}>Contact</a>
                     <ThemeToggle />

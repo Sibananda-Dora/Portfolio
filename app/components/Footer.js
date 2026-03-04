@@ -5,13 +5,12 @@ export default function Footer() {
         <footer className="footer">
             <div className="container">
                 <div className="footer-grid">
-                    {/* Column 1: Writings & Learning */}
+                    {/* Column 1: Explore */}
                     <div className="footer-section">
-                        <h4>Writings & Learning</h4>
+                        <h4>Explore</h4>
                         <ul>
-                            <li><a href="#blogs">Blogs</a></li>
-                            <li><a href="#bookshelf">Bookshelf</a></li>
-                            <li><a href="#papershelf">Papershelf</a></li>
+                            <li><a href="/highlights">Highlights</a></li>
+                            <li><a href="/myreads">MyReads</a></li>
                         </ul>
                     </div>
 
@@ -20,7 +19,7 @@ export default function Footer() {
                         <h4>Projects</h4>
                         <ul>
                             <li><a href="https://github.com/Sibananda-Dora" target="_blank" rel="noopener noreferrer">OpenMedia CLI</a></li>
-                            <li><a href="https://github.com/Sibananda-Dora" target="_blank" rel="noopener noreferrer">All Projects →</a></li>
+                            <li><a href="/projects">All Projects →</a></li>
                         </ul>
                     </div>
 
@@ -38,8 +37,7 @@ export default function Footer() {
                     <div className="footer-section">
                         <h4>Other</h4>
                         <ul>
-                            <li><a href="mailto:sibanandadora443@gmail.com">Contact Me</a></li>
-                            <li><a href="#about">About</a></li>
+                            <li><a href="/#contact">Contact Me</a></li>
                         </ul>
                     </div>
                 </div>

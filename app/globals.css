@@ -8,14 +8,14 @@
 /* ---------- CSS Custom Properties ---------- */
 :root {
   /* Colors – Light Theme */
-  --bg-primary: #FFF9F0;
-  --bg-secondary: #FFF5E6;
-  --bg-card: #FFFFFF;
+  --bg-primary: #F0E8DC;
+  --bg-secondary: #EBE0D0;
+  --bg-card: #FFF9F0;
   --text-primary: #1A1A1A;
   --text-secondary: #4A4A4A;
   --text-muted: #7A7A7A;
-  --accent: #C53030;
-  --accent-hover: #9B2C2C;
+  --accent: #0D9488;
+  --accent-hover: #0A7A70;
   --link: #2B6CB0;
   --link-hover: #1A4A7A;
   --border: #E8E0D4;
@@ -46,8 +46,8 @@
   --text-primary: #E8E0D4;
   --text-secondary: #B0A898;
   --text-muted: #7A7268;
-  --accent: #E5574F;
-  --accent-hover: #F07068;
+  --accent: #2DD4BF;
+  --accent-hover: #5EEAD4;
   --link: #6CB4E8;
   --link-hover: #8ECAF0;
   --border: #2A2A2A;
@@ -525,44 +525,267 @@ h3 {
 }
 
 /* =============================================
-   MYREADS / BOOK CARDS
+   HIGHLIGHTS PAGE
    ============================================= */
-.book-list {
+.highlights-page {
+  padding: 3rem 0 var(--section-gap);
+}
+
+.highlights-list {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.5rem;
 }
 
-.book-card {
+.highlight-card {
   display: flex;
   gap: 1.5rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 1.5rem;
-  transition: all var(--transition-normal);
+  align-items: flex-start;
 }
 
-.book-card:hover {
-  border-color: var(--accent);
-  box-shadow: 0 8px 30px var(--shadow-hover);
-}
-
-.book-cover-link {
+.highlight-bullet {
   flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-top: 0.2rem;
 }
 
-.book-cover {
-  width: 120px;
-  height: 170px;
+.highlight-content {
+  flex: 1;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.highlights-list .highlight-card:last-child .highlight-content {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+
+.highlight-content h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.2rem;
+}
+
+.highlight-date {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.highlight-photos {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.highlight-photo {
+  width: 200px;
+  height: 140px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 10px;
   border: 1px solid var(--border-light);
+  flex-shrink: 0;
   transition: transform var(--transition-fast);
 }
 
-.book-cover-link:hover .book-cover {
+.highlight-photo:hover {
   transform: scale(1.03);
+}
+
+.highlight-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+@media (max-width: 640px) {
+  .highlight-card {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .highlight-photos {
+    gap: 0.5rem;
+  }
+
+  .highlight-photo {
+    width: 160px;
+    height: 110px;
+  }
+}
+
+/* =============================================
+   LIGHTBOX MODAL
+   ============================================= */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.lightbox-img {
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: 10px;
+  object-fit: contain;
+  cursor: default;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-close {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast);
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* =============================================
+   MYREADS / BOOK CARDS
+   ============================================= */
+.myreads-page {
+  padding: 3rem 0 var(--section-gap);
+}
+
+.myreads-layout {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+/* Sidebar */
+.myreads-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  position: sticky;
+  top: calc(var(--header-height) + 2rem);
+}
+
+.sidebar-tab {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 0.6rem 1rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--transition-fast);
+}
+
+.sidebar-tab:hover {
+  border-color: var(--accent);
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+}
+
+.sidebar-tab.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+/* Book Cards */
+.myreads-content {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.myreads-category h2 {
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.book-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.book-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.4rem 0;
+}
+
+.book-number {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  min-width: 1.8rem;
+  flex-shrink: 0;
+}
+
+.book-title-link {
+  font-size: 0.97rem;
+  font-weight: 500;
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--transition-fast);
+}
+
+.book-title-link:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+.book-author-inline {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-style: italic;
+  white-space: nowrap;
 }
 
 .book-info {
@@ -577,7 +800,9 @@ h3 {
 
 .book-info h2 a {
   color: var(--text-primary);
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
 }
 
 .book-info h2 a:hover {
@@ -904,6 +1129,21 @@ h3 {
 
   .footer-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .myreads-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .myreads-sidebar {
+    flex-direction: row;
+    position: static;
+    overflow-x: auto;
+  }
+
+  .sidebar-tab {
+    white-space: nowrap;
   }
 }
 

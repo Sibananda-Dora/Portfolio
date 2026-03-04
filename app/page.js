@@ -4,7 +4,7 @@ import ProjectCard from "./components/ProjectCard";
 import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
 
-const API = "http://127.0.0.1:8000";
+const API = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
 
 /**
  * Fetch data from the FastAPI backend.
@@ -107,27 +107,38 @@ export default async function Home() {
                 )}
 
                 {/* Bookshelf */}
-                {hasBooks && (
-                  <div className="content-section">
-                    <h2>
-                      Bookshelf •{" "}
-                      <a href="/bookshelf">All books →</a>
-                    </h2>
-                    <p className="content-section-desc">
-                      Books I have been reading.
-                    </p>
-                    <ul className="content-list">
-                      {bookshelf.map((book, i) => (
-                        <li key={i}>
-                          <a href={book.url}>{book.title}</a>
-                          {book.author && (
-                            <span className="date"> — {book.author}</span>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+                {hasBooks && (() => {
+                  const novel = bookshelf.find(b => b.category === "novels");
+                  const study = bookshelf.find(b => b.category === "study-based");
+                  const picks = [novel, study].filter(Boolean);
+                  return (
+                    <div className="content-section">
+                      <h2>
+                        Bookshelf •{" "}
+                        <a href="/myreads">All books →</a>
+                      </h2>
+                      <p className="content-section-desc">
+                        Books I have been reading.
+                      </p>
+                      <ul className="content-list">
+                        {picks.map((book, i) => (
+                          <li key={i}>
+                            <a
+                              href={`https://www.google.com/search?q=${encodeURIComponent(`${book.title} by ${book.author}`)}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {book.title}
+                            </a>
+                            {book.author && (
+                              <span className="date"> — {book.author}</span>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  );
+                })()}
 
                 {/* Papershelf */}
                 {hasPapers && (
