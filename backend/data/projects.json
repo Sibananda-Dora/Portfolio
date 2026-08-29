@@ -9,6 +9,18 @@
             "CLI",
             "AI"
         ],
-        "url": "https://github.com/Sibananda-Dora"
+        "url": "https://github.com/Sibananda-Dora/OpenMedia-CLI"
+    },
+    {
+        "title": "Cognitive Digital Twin",
+        "description": "A cognitive digital twin for rice yield prediction and crop-failure risk assessment. Fuses a dual-track stacked ensemble (LSTM-attention + XGBoost) with real-time weather data, biophysical trigger detection, and an LLM-powered advisory layer, all served through an interactive dashboard.",
+        "tags": [
+            "FastAPI",
+            "React",
+            "PyTorch",
+            "XGBoost",
+            "Machine Learning"
+        ],
+        "url": "https://github.com/Sibananda-Dora/Research-Internship"
     }
 ]
