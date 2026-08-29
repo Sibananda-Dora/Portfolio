@@ -1,9 +1,7 @@
 export default function ProjectCard({ title, description, tags, url }) {
-    return (
-        <div className="project-card">
-            <h3>
-                {url ? <a href={url} target="_blank" rel="noopener noreferrer">{title}</a> : title}
-            </h3>
+    const content = (
+        <>
+            <h3>{title}</h3>
             <p>{description}</p>
             {tags && tags.length > 0 && (
                 <div className="project-tags">
@@ -14,6 +12,26 @@ export default function ProjectCard({ title, description, tags, url }) {
                     ))}
                 </div>
             )}
+        </>
+    );
+
+    if (url) {
+        return (
+            <a 
+                href={url} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="project-card" 
+                style={{ display: 'block', textDecoration: 'none', cursor: 'pointer' }}
+            >
+                {content}
+            </a>
+        );
+    }
+
+    return (
+        <div className="project-card">
+            {content}
         </div>
     );
 }
